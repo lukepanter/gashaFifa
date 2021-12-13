@@ -1,0 +1,65 @@
+<%@user = User.find_by(id: session[:user_id])%>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">GAsha FiFA</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href= "/banner/<%=session[:user_id]%>">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href= "/inventory">Inventory</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href= "/market">Market</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href= "http://localhost:3000/main">Log out</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<p>
+  <h3>Username: <%= @user.username %></h3>
+</p>
+<p>
+  <h3>Credit:<%= @user.credit %></h3>
+</p>
+
+
+<p id="notice"><%= notice %></p>
+
+<h1>Users</h1>
+
+
+  <%items =Inventory.where(status:"for sale")%>
+  
+    <% items.each do |itemID| %>
+      <%item = Item.find_by(id:itemID.item_id)%>
+      <div class="card item" style="width: 18rem; ">
+      <img class="card-img-top" src="<%=item.img_url%>" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title"><%= item.itemname%></h5>
+        <p class="card-text"><%= item.rarity %></p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><%= itemID.status %></li>
+        <li class="list-group-item"><%= itemID.price %></li>
+      </ul>
+      <div class="card-body">
+        <%if itemID.user_id != @user.id and @user.credit >= itemID.price %>
+         <a href="/buy/<%=itemID.id%>/<%=@user.id%>" class="card-link">Buy</a>
+        <%end%>
+      </div>
+      <%end%>
+    
+
+<a href="/inventory" class="btn btn-primary">Back</a>
+

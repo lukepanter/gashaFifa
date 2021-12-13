@@ -1,0 +1,12 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  username: "zzz"
+  password_digest: <%= BCrypt::Password.create("zzz") %>
+  credit: 1500
+
+two:
+  username: "kkk"
+  password_digest: <%= BCrypt::Password.create("kkk") %>
+  credit: 1500
+

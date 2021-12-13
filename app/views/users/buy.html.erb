@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+<%@user = User.find_by(id: session[:user_id])%>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">GAsha FiFA</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href= "/banner/<%=session[:user_id]%>">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href= "/inventory">Inventory</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href= "/market">Market</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href= "http://localhost:3000/main">Log out</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<%@inventory = Inventory.find_by(id: params[:inventory_id])%>
+<%item = Item.find_by(id: @inventory.item_id) %>
+
+<img src="<%=item.img_url%>"    alt="...">
+<p><%=item.itemname%></p>
+<p>
+  <strong>From Username:</strong>
+  <%= User.find_by(id: @inventory.user_id).username %>
+</p>
+
+<p>
+  <strong>To Username:</strong>
+  <%= @user.username %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @inventory.price %>
+</p>
+
+
+<a href="/inventory" class="btn btn-primary">Back</a>

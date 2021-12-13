@@ -1,0 +1,79 @@
+<p id="notice"><%= notice %></p>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">GAsha FiFA</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href= "/banner/<%=session[:user_id]%>">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href= "/inventory">Inventory</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href= "/market">Market</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href= "http://localhost:3000/main">Log out</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<p>
+  <h3>Username: <%= @user.username %></h3>
+</p>
+<p>
+  <h3>Credit:<%= @user.credit %></h3>
+</p>
+
+  <div>
+    <%@banners = Banner.all%>
+    <% @banners.each do |banner| %>
+      
+      <div class="card" style="width: 18rem;">
+        <img src="https://cdn-wp.thesportsrush.com/2019/07/GettyImages-904853854.jpg" >
+        <div class="card-body">
+        <h5 class="card-title"><%=banner.bannername%></h5>
+        <p class="card-text"><%=banner.content%></p>
+        <a href="/search/<%=banner.bannername%>" class="btn btn-primary">Gacha!</a>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+<!-- <div class="modal fade" id="likeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Total Likes</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id = "body">
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(".xyz").click(function(){
+      var myModal = new bootstrap.Modal(document.getElementById('likeModal'), {})
+      $(".modal-body").empty();
+      const data = $(this).data("like");
+      //$(".modal-body").text(data);
+      for (let i = 0 ; i < data.length; i++) {
+        $(".modal-body").append(`<a href="/profile/${data[i]}">${data[i]}</a><br>`);
+      }
+      myModal.show();
+  })
+</script> -->

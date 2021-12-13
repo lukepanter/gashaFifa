@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dateTime: 2021-12-12 23:50:59
+  seller: one
+  buyer: one
+  item: one
+  price: 1.5
+
+two:
+  dateTime: 2021-12-12 23:50:59
+  seller: two
+  buyer: two
+  item: two
+  price: 1.5

@@ -1,0 +1,44 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  itemname: "item1"
+  rarity: "item1"
+  img_url: "item1"
+
+two:
+  itemname: "item2"
+  rarity: "item2"
+  img_url: "item2"
+
+three:
+  itemname: "item3"
+  rarity: "item3"
+  img_url: "item3"
+
+four:
+  itemname: "item4"
+  rarity: "item4"
+  img_url: "item4"
+
+five:
+  itemname: "item5"
+  rarity: "item5"
+  img_url: "item5"
+
+six:
+  itemname: "item6"
+  rarity: "item6"
+  img_url: "item6"
+
+seven:
+  itemname: "item7"
+  rarity: "item7"
+  img_url: "item7"
+
+eight:
+  itemname: "item8"
+  rarity: "item8"
+  img_url: "item8"
+
+
+

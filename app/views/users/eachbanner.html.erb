@@ -1,0 +1,154 @@
+<p id="notice"><%= notice %></p>
+
+<%name = params[:name]%>
+<%banner = Banner.find_by(bannername: name)%>
+<%allItem = banner.get_rate%>
+<%allRate = Array.new%>
+<% allItem.each do |itemName| %>
+  <%item = Item.find_by(itemname: itemName)%>
+  <%itemDetail = Array.new%>
+  <%itemDetail.push(itemName)%>
+  <%itemDetail.push(item.rarity )%>
+  <%allRate.push(itemDetail)%>
+<% end %>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">GAsha FiFA</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href= "/banner/<%=session[:user_id]%>">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href= "/inventory">Inventory</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href= "/market">Market</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href= "http://localhost:3000/main">Log out</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<p>
+  <h3>Username: <%= @user.username %></h3>
+</p>
+<p>
+  <h3>Credit:<%= @user.credit %></h3>
+</p>
+
+
+<p>
+  <strong><%= banner.bannername %></strong>
+</p>
+<img src="<%= banner.img_url%>" alt="...">
+<p><%=banner.content%></p>
+
+<button class="card-link rate" data-bs-toggle="modal" data-bs-target="#rateModal1" data-like = '<%=allRate%>' >
+Rate
+</button>
+<%@user = User.find_by(id: session[:user_id])%>
+<%if banner.banner_items.size >= 1 and @user.credit >=100%>
+<a href="/result/<%=name%>/one/<%=@user.id%>" class="btn btn-primary">Get X1 $100</a>
+<%end%>
+<%if banner.banner_items.size >= 5 and @user.credit >=400%>
+<a href="/result/<%=name%>/five/<%=@user.id%>" class="btn btn-primary">Get X5 $400</a>
+<%end%>
+
+
+
+
+
+
+
+<div class="modal fade" id="rateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Item Rate</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body-rate" id = "body">
+        <table>
+          <thead>
+            <tr>
+              <th colspan="1"></th>
+              <th>name</th>
+              <th>rarity</th>
+            </tr>
+          </thead>
+
+          <tbody class= "body-rate">
+          </tbody>
+        </table>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- <div class="modal fade" id="randomOneModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Item that you Got</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body-one" id = "body">
+        
+        
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+
+<script>
+  // $(".getOne").click(function(){
+  //   var myModal = new bootstrap.Modal(document.getElementById('randomOneModal'), {})
+  //   $(".modal-body-one").empty();
+  //   const data = $(this).data("like");
+  //     $(".modal-body-one").append(`<p>${data[0]}</p><img src="${data[2]}" class="card-img-top" alt="..."><p>${data[1]}</p>`);
+  //   myModal.show();
+  // })
+
+  // $(".getFive").click(function(){
+  //   var myModal = new bootstrap.Modal(document.getElementById('randomFiveModal'), {})
+  //   $(".modal-body-five").empty();
+  //   const data = $(this).data("like2");
+  //   for (let i = 0 ; i < data.length; i++) {
+  //     $(".modal-body-five").append(`<p>${data[i][0]}</p><img src="${data[i][2]}" class="card-img-top" alt="..."><p>${data[i][1]}</p>`);
+  //     $(".modal-body-five").append(`<p>------------------------------------------</p>`);
+  //   }
+  //   myModal.show();
+  // })
+
+
+  $(".rate").click(function(){
+    var myModal = new bootstrap.Modal(document.getElementById('rateModal'), {})
+    $(".body-rate").empty();
+    const data = $(this).data("like");
+    for (let i = 0 ; i < data.length; i++) {
+      $(".body-rate").append(`<tr><td style="background-image: url('${data[i][2]} ')" width="100%"><td>${data[i][0]}</td>
+        <td>${data[i][1]}</td>
+      </tr>`);
+      }
+    myModal.show();
+  })  
+</script>
